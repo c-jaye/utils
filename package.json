@@ -15,7 +15,7 @@
         "clean": "pnpx del-cli@latest --force \"**/pnpm-lock.yaml\" \"**/test-results.xml\" \"**/*.log\" \"**/node_modules\" \"**/dist\" \"**/.husky/_\" \"**/verdaccio/storage\" \"**/verdaccio/htpasswd\" \"**/verdaccio/config.yaml\"",
         "bump": "sed -i -E 's/\"version\": *\"[^\"]*\"/\"version\": \"'\"${GITHUB_REF_NAME#v}\"'\"/' package.json && rm -rf package.json-E",
         "prepare:all": "pnpm run prepare:verdaccio && pnpm run prepare:husky",
-        "prepare:verdaccio": "sudo apt-get update && sudo apt-get install -y expect && chmod +x verdaccio/init verdaccio/login",
+        "prepare:verdaccio": "sudo apt-get update || true && sudo apt-get install -y expect || true && chmod +x verdaccio/init verdaccio/login",
         "prepare:husky": "husky || true && chmod +x .husky/pre-push",
         "lint": "tsc -b && pnpm run lint:check",
         "lint:check": "pnpm eslint .",
