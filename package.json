@@ -20,7 +20,7 @@
         "lint": "tsc -b && pnpm run lint:check",
         "lint:check": "pnpm eslint .",
         "lint:fix": "pnpm eslint . --fix",
-        "test": "pnpm run prepare:all && pnpm run lint && pnpm run test:unit",
+        "test": "pnpm run lint && pnpm run test:unit",
         "test:unit": "vitest --no-watch",
         "build": "pnpm run test && pnpm run build:bundle",
         "build:bundle": "unbuild",

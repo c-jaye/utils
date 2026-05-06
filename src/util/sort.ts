@@ -1,7 +1,7 @@
 import { isArr, isObj, keysOf, mapObj } from "./helpers"
 import type { Obj } from "@/types"
 
-export function sortObj<T extends Obj>(obj: T): T {
+export function sortObj<T extends Obj = Obj>(obj: T): T {
     return keysOf(obj).sort().reduce((v, k) => {
         v[k] = obj[k]
         return v

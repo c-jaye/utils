@@ -87,7 +87,7 @@ export function isArr<T>(
     return Array.isArray(value)
 }
 
-export function isObj<T>(
+export function isObj<T = unknown>(
     value: unknown,
 ): value is Obj<T> {
     return !!value && !isArr(value) && typeof value === "object"
