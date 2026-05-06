@@ -26,7 +26,7 @@
         "build": "pnpm run test && pnpm run build:bundle",
         "build:bundle": "unbuild",
         "prepublishOnly": "pnpx del-cli --force \"**/dist\" && pnpm run prepare:all && pnpm run build:bundle",
-        "publish:verdaccio": "pnpm run dev:verdaccio & sleep 3 && verdaccio/init || true && verdaccio/login && pnpm publish --access public --tag latest --no-git-checks --registry http://localhost:30333",
+        "publish:verdaccio": "pnpm run prepare:verdaccio && pnpm run dev:verdaccio & sleep 3 && verdaccio/init || true && verdaccio/login && pnpm publish --access public --tag latest --no-git-checks --registry http://localhost:30333",
         "publish:chromatic": "pnpx chromatic@latest",
         "publish:npm": "pnpm publish --access public --tag latest --no-git-checks --registry registry.npmjs.org"
     },
