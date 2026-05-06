@@ -23,12 +23,8 @@ export default defineBuildConfig([{
         "@": resolve(import.meta.dirname, "./src"),
     },
     entries: [{
-        input: "src/types/index.ts",
-        name: "types/index",
-        declaration: true,
-    }, {
-        input: "src/util/index.ts",
-        name: "util/index",
+        input: "src/index.ts",
+        name: "index",
         declaration: true,
     }],
     outDir: "dist",
