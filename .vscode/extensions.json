@@ -1,0 +1,19 @@
+{
+    "recommendations": [
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.csdevkit",
+        "clinyong.vscode-css-modules",
+        "mikestead.dotenv",
+        "dbaeumer.vscode-eslint",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "davidanson.vscode-markdownlint",
+        "unifiedjs.vscode-mdx",
+        "christian-kohler.path-intellisense",
+        "viijay-kr.react-ts-css",
+        "syler.sass-indented",
+        "mrmlnc.vscode-scss",
+        "pflannery.vscode-versionlens"
+    ]
+}

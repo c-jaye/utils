@@ -1,0 +1,54 @@
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  push:
+    if: github.event.base_ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    environment: Production
+    env:
+      VERDACCIO_KEY: ${{ secrets.VERDACCIO_KEY }}
+      NPM_KEY: ${{ secrets.NPM_KEY }}
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: pnpm
+        uses: pnpm/action-setup@v6.0.2
+        with:
+          cache: true
+
+      - name: node
+        uses: actions/setup-node@v6.3.0
+        with:
+          node-version-file: package.json
+          check-latest: true
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: install
+        run: pnpm i
+
+      - name: bump
+        run: |
+          sed -i -E 's/"version": *"[^"]*"/"version": "'"${GITHUB_REF_NAME#v}"'"/' package.json
+
+      - name: test
+        run: pnpm run test
+
+      - name: verdaccio-init
+        run: echo //localhost:30333/:_authToken=${{ secrets.VERDACCIO_KEY }} \n >> ./.npmrc && cat ./.npmrc
+
+      - name: verdaccio
+        run: pnpm run dev:verdaccio & sleep 3 && pnpm run publish:verdaccio
+
+      - name: publish-init
+        run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_KEY }} \n >> ./.npmrc && cat ./.npmrc
+
+      - name: publish
+        run: pnpm run publish:npm

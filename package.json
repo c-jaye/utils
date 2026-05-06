@@ -1,0 +1,103 @@
+{
+    "name": "@cjaye/utils",
+    "version": "1.0.0",
+    "description": "",
+    "keywords": [],
+    "license": "MIT",
+    "author": "Charles Jaye",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/c-jaye/utils.git"
+    },
+    "private": false,
+    "type": "module",
+    "scripts": {
+        "clean": "pnpx del-cli@latest --force \"**/pnpm-lock.yaml\" \"**/test-results.xml\" \"**/*.log\" \"**/node_modules\" \"**/dist\" \"**/.husky/_\" \"**/verdaccio/storage\" \"**/verdaccio/htpasswd\" \"**/verdaccio/config.yaml\"",
+        "bump": "sed -i -E 's/\"version\": *\"[^\"]*\"/\"version\": \"'\"${GITHUB_REF_NAME#v}\"'\"/' package.json && rm -rf package.json-E",
+        "prepare:all": "pnpm run prepare:verdaccio && pnpm run prepare:husky",
+        "prepare:verdaccio": "sudo apt-get update && sudo apt-get install -y expect && chmod +x verdaccio/init verdaccio/login",
+        "prepare:husky": "husky || true && chmod +x .husky/pre-push",
+        "lint": "tsc -b && pnpm run lint:check",
+        "lint:check": "pnpm eslint .",
+        "lint:fix": "pnpm eslint . --fix",
+        "test": "pnpm run prepare:all && pnpm run lint && pnpm run test:unit",
+        "test:unit": "vitest --no-watch",
+        "build": "pnpm run test && pnpm run build:bundle",
+        "build:bundle": "unbuild",
+        "prepublishOnly": "pnpx del-cli --force \"**/dist\" && pnpm run prepare:all && pnpm run build:bundle",
+        "publish:verdaccio": "verdaccio/init || true && verdaccio/login && pnpm run verdaccio --listen 30333 & sleep 3 && pnpm publish --access public --tag latest --no-git-checks --registry http://localhost:30333",
+        "publish:chromatic": "pnpx chromatic@latest",
+        "publish:npm": "pnpm publish --access public --tag latest --no-git-checks --registry registry.npmjs.org"
+    },
+    "packageManager": "pnpm@10.33.0",
+    "engines": {
+        "node": "^24.15.0"
+    },
+    "files": [
+        "dist"
+    ],
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.mts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.cjs",
+            "default": "./dist/index.mjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "os": [
+        "darwin",
+        "linux",
+        "win32"
+    ],
+    "dependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "opentype.js": "^1.3.4"
+    },
+    "peerDependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "storybook": "^10.3.5"
+    },
+    "devDependencies": {
+        "@chromatic-com/storybook": "^5.1.2",
+        "@storybook/addon-a11y": "^10.3.5",
+        "@storybook/addon-designs": "^11.1.3",
+        "@storybook/addon-vitest": "^10.3.5",
+        "@storybook/icons": "^2.0.1",
+        "@storybook/react-vite": "^10.3.5",
+        "@stylistic/eslint-plugin": "^5.10.0",
+        "@types/node": "^24.12.2",
+        "@types/opentype.js": "^1.3.9",
+        "@types/react": "^18.3.28",
+        "@types/react-dom": "^18.3.7",
+        "@vitejs/plugin-react-swc": "^4.3.0",
+        "@vitest/browser": "^4.1.4",
+        "@vitest/browser-playwright": "^4.1.4",
+        "@vitest/coverage-v8": "^4.1.4",
+        "chromatic": "^16.3.0",
+        "classnames": "^2.5.1",
+        "concurrently": "^9.2.1",
+        "dotenv": "^17.4.2",
+        "eslint": "^9.39.4",
+        "eslint-import-resolver-typescript": "^4.4.4",
+        "eslint-plugin-import-x": "^4.16.2",
+        "eslint-plugin-react-hooks": "^7.1.1",
+        "eslint-plugin-storybook": "10.3.5",
+        "globals": "^17.5.0",
+        "husky": "^9.1.7",
+        "jiti": "^2.6.1",
+        "opentype.js": "^1.3.4",
+        "playwright": "^1.59.1",
+        "sass-embedded": "^1.99.0",
+        "storybook": "^10.3.5",
+        "tinyglobby": "^0.2.16",
+        "typescript": "~5.9.3",
+        "typescript-eslint": "^8.58.2",
+        "unbuild": "^3.6.1",
+        "verdaccio": "^6.5.2",
+        "vite": "^8.0.8",
+        "vitest": "^4.1.4"
+    }
+}

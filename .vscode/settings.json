@@ -1,0 +1,32 @@
+{
+    "eslint.format.enable": true,
+    "eslint.onIgnoredFiles": "warn",
+    "eslint.useFlatConfig": true,
+    "eslint.probe": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "html",
+        "mdx",
+        "markdown",
+        "json",
+        "jsonc",
+        "css",
+        "scss"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "files.eol": "\r\n",
+    "path-intellisense.showHiddenFiles": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "js/ts.tsdk.path": "node_modules/typescript/lib",
+}
