@@ -42,7 +42,7 @@ jobs:
         run: pnpm run test
 
       - name: verdaccio-init
-        run: echo //localhost:30333/:_authToken=${{ secrets.VERDACCIO_KEY }} \n >> ./.npmrc && cat ./.npmrc
+        run: pnpm run prepare:verdaccio && echo //localhost:30333/:_authToken=${{ secrets.VERDACCIO_KEY }} \n >> ./.npmrc && cat ./.npmrc
 
       - name: verdaccio
         run: pnpm run dev:verdaccio & sleep 3 && pnpm run publish:verdaccio
