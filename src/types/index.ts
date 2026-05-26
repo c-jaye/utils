@@ -17,6 +17,10 @@ export type JSONValue = JSONPrimitive | JSONValue[] | { [k: string]: JSONValue }
 export type JSONArray<T extends JSONValue = JSONValue> = T[]
 export type JSONObject<T extends JSONValue = JSONValue> = Obj<T>
 
+export type NestedArr<T = unknown> = T | NestedArr<T>[]
+export type NestedObj<T = unknown> = T | { [k: string]: NestedObj<T> }
+export type Nested<T = unknown> = T | Nested<T>[] | { [k: string]: Nested<T> }
+
 export type KeyOf<T> = keyof T & string
 export type PartialObj<T> = Partial<T> & (T extends Obj<unknown> ? Obj<NonNullable<T[keyof T]>> : {})
 export type ConvertEnums<T> = { [K in keyof T]: T[K] extends string | number | undefined ? `${NonNullable<T[K]>}` : T[K] }
