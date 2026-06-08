@@ -19,9 +19,6 @@
             "DOM",
             "DOM.Iterable"
         ],
-        "types": [
-            "vite/client"
-        ],
         "module": "ESNext",
         "jsx": "react-jsx",
         "skipLibCheck": true,
